@@ -1,0 +1,133 @@
+
+Setting environment for using XAMPP for Windows.
+fatur@DESKTOP-EFH4H7L c:\xampp
+# cd\xampp\mysql\bin
+
+fatur@DESKTOP-EFH4H7L c:\xampp\mysql\bin
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 9
+Server version: 10.4.28-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| dbti02             |
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
++--------------------+
+6 rows in set (0.122 sec)
+
+MariaDB [(none)]> CREATE DATABASE dbkuliah;
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [(none)]> USE dbkuliah;
+Database changed
+MariaDB [dbkuliah]> CREATE TABLE;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [dbkuliah]> CREATE TABLE jurusan(
+    -> id int primary key auto_increment not null,
+    -> nama varchar(30) not null unique);
+Query OK, 0 rows affected (0.204 sec)
+
+MariaDB [dbkuliah]> DESC jurusan;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nama  | varchar(30) | NO   | UNI | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.039 sec)
+
+MariaDB [dbkuliah]> CREATE TABLE mahasiswa(
+    -> id int primary key auto_increment not null,
+    -> nim int not null unique,
+    -> nama varchar(30) not null,
+    -> alamat varchar(50) not null,
+    -> idjurusan int not null references jurusan(id),
+    -> foto varchar(50) null);
+Query OK, 0 rows affected (0.342 sec)
+
+MariaDB [dbkuliah]> DESC mahasiswa;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| id        | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nim       | int(11)     | NO   | UNI | NULL    |                |
+| nama      | varchar(30) | NO   |     | NULL    |                |
+| alamat    | varchar(50) | NO   |     | NULL    |                |
+| idjurusan | int(11)     | NO   |     | NULL    |                |
+| foto      | varchar(50) | YES  |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+6 rows in set (0.033 sec)
+
+MariaDB [dbkuliah]> INSERT INTO jurusan(nama)VALUES
+    -> ('Teknik Informatika'),('Sistem Informasi'),('Bisnis Digital'),('Akuntansi'),('Kedokteran')('Teknik Kimia');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '('Teknik Kimia')' at line 2
+MariaDB [dbkuliah]> INSERT INTO jurusan(nama)VALUES
+    -> ('Teknik Informatika'),('Sistem Informasi'),('Bisnis Digital'),('Akuntansi'),('Kedokteran'),('Teknik Kimia');
+Query OK, 6 rows affected (0.312 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+MariaDB [dbkuliah]> SELECT * FORM jurusan;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FORM jurusan' at line 1
+MariaDB [dbkuliah]> SELECT * FROM jurusan;
++----+--------------------+
+| id | nama               |
++----+--------------------+
+|  4 | Akuntansi          |
+|  3 | Bisnis Digital     |
+|  5 | Kedokteran         |
+|  2 | Sistem Informasi   |
+|  1 | Teknik Informatika |
+|  6 | Teknik Kimia       |
++----+--------------------+
+6 rows in set (0.001 sec)
+
+MariaDB [dbkuliah]> INSERT INTO mahasiswa(nim,nama,alamat,idjurusan,foto)VALUES
+    -> (11223312,'dysha','makasar',1,'dysha.jpg'),
+    -> (11223334,'andin','makasar',2,'andin.jpg'),
+    -> (11223356,'uta','jakarta',3,'uta.jpg'),
+    -> (11223378,'dillah','jasinga',4,'dillah.jpg'),
+    -> (11223390,'al','bogor',5,'al.jpg');
+Query OK, 5 rows affected (0.159 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [dbkuliah]> SELECT * FORM mahasiswa;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FORM mahasiswa' at line 1
+MariaDB [dbkuliah]> SELECT * FROM mahasiswa;
++----+----------+--------+---------+-----------+------------+
+| id | nim      | nama   | alamat  | idjurusan | foto       |
++----+----------+--------+---------+-----------+------------+
+|  1 | 11223312 | dysha  | makasar |         1 | dysha.jpg  |
+|  2 | 11223334 | andin  | makasar |         2 | andin.jpg  |
+|  3 | 11223356 | uta    | jakarta |         3 | uta.jpg    |
+|  4 | 11223378 | dillah | jasinga |         4 | dillah.jpg |
+|  5 | 11223390 | al     | bogor   |         5 | al.jpg     |
++----+----------+--------+---------+-----------+------------+
+5 rows in set (0.001 sec)
+
+MariaDB [dbkuliah]> EXIT;
+Bye
+
+fatur@DESKTOP-EFH4H7L c:\xampp\mysql\bin
+# \Q
+'\Q' is not recognized as an internal or external command,
+operable program or batch file.
+
+fatur@DESKTOP-EFH4H7L c:\xampp\mysql\bin
+# \q
+'\q' is not recognized as an internal or external command,
+operable program or batch file.
+
+fatur@DESKTOP-EFH4H7L c:\xampp\mysql\bin
+#
